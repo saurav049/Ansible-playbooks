@@ -1,0 +1,183 @@
+---
+ - hosts: new,win
+   tasks:
+             
+           - name: download  chrome package in ubuntu
+             command: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+             when: ansible_os_family == 'Debian'
+
+           - name: install chrome package
+             command: "dpkg -i google-chrome-stable_current_amd64.deb"
+             when: ansible_os_family == 'Debian'
+
+           - name: Download skype package for ubuntu
+             command: "wget https://go.skype.com/skypeforlinux-64.deb"
+             when: ansible_os_family == 'Debian'
+
+           - name: install skype package
+             shell: dpkg -i /root/skypeforlinux-64.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: install thunderbird
+             apt: name=thunderbird state=latest
+             when: ansible_os_family == 'Debian'
+
+           - name: install mozzila firefox
+             apt: name=firefox state=latest
+             when: ansible_os_family == 'Debian'
+        
+           - name: install git
+             apt: name=git state=latest
+             when: ansible_os_family == 'Debian'
+
+#       - name: Download openoffice for ubuntu
+#         command: "wget https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.9/binaries/en-US/Apache_OpenOffice_4.1.9_Linux_x86-64_install-deb_en-US.tar.gz/download"
+#         when: ansible_os_family == 'Debian'
+#       - name: rename file
+#         command: "mv /root/download /root/openoofice.tar.gz"
+#         when: ansible_os_family == 'Debian'
+#
+#       - name: unziping file
+#         command: "tar -xvf /root/openoofice.tar.gz"
+#         when: ansible_os_family == 'Debian'
+
+           - name: installing deb packages
+             shell: dpkg -i /root/en-US/DEBS/*.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: integrating deb packages
+             shell: dpkg -i /root/en-US/DEBS/desktop-integration/*.deb
+             when: ansible_os_family == 'Debian'
+
+           #     - name: set up repository to install docker engine
+           #shell: apt-get install \ apt-transport-https \ ca-certificates \ curl \ gnupg \ lsb-release -y
+           #when: ansible_os_family == 'Debian'
+
+       #     - name: adding docker's GPG key
+       #shell: curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      #when: ansible_os_family == 'Debian'
+      
+       #     - name: setup stable repository
+       # shell: echo \ "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null  
+       #when: ansible_os_family == 'Debian'
+
+       #     - name: Download deb package for docker
+       #shell: wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.5~3-0~debian-stretch_amd64.deb
+       #when: ansible_os_family == 'Debian'
+
+           #- name: installing docker-ce-cli
+           #shell: dpkg -i docker-ce-cli_19.03.5~3-0~debian-stretch_amd64.deb
+           #when: ansible_os_family == 'Debian'
+
+#     - name: Download deb package for docker
+#       shell: wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/containerd.io_1.4.4-1_amd64.deb
+#when: ansible_os_family == 'Debian'
+
+           #     - name: installing docker-ce
+           # shell: dpkg -i containerd.io_1.4.4-1_amd64.deb
+           # when: ansible_os_family == 'Debian'
+
+           #     - name: Download deb package for docker
+           #shell: wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_19.03.15~3-0~ubuntu-focal_amd64.deb
+           # when: ansible_os_family == 'Debian'
+
+           #- name: installing docker-ce
+           #shell: dpkg -i docker-ce_19.03.15~3-0~ubuntu-focal_amd64.deb
+           # when: ansible_os_family == 'Debian'
+
+           #- name: get updated
+           #  apt: name=* state=latest
+
+           - name: install apache2
+             apt: name=apache2 state=latest
+             when: ansible_os_family == 'Debian'
+
+           - name: install mariadb
+             apt: name=mariadb-server state=present
+             when: ansible_os_family == 'Debian'
+          
+           - name: install python and other php dependencies
+             apt:
+                name: ['php','libapache2-mod-php','php-mysql','python3-pymysql']
+                state: present
+             when: ansible_os_family == 'Debian'
+
+           - name: download anydesk package
+             shell: wget https://download.anydesk.com/linux/anydesk_6.1.1-1_amd64.deb?_ga=2.37867875.1919005348.1619526148-1213415500.1619526148
+             when: ansible_os_family == 'Debian'
+
+           - name: Rename deb package
+             shell: mv anydesk_6.1.1-1_amd64.deb?_ga=2.37867875.1919005348.1619526148-1213415500.1619526148 anydesk_amd64.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: Installing deb package
+             shell: dpkg -i anydesk_amd64.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: download teams package
+             shell: wget https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/teams_1.3.00.5153_amd64.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: install teams package
+             shell: dpkg -i teams_1.3.00.5153_amd64.deb
+             when: ansible_os_family == 'Debian'
+
+           - name: install skype
+             win_chocolatey:
+                     name: skype
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install chrome
+             win_chocolatey:
+                     name: googlechrome
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install anydesk
+             win_chocolatey:
+                     name: anydesk
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install teams
+             win_chocolatey:
+                     name: microsoft-teams
+                     state: present
+             when: ansible_os_family == 'Windows'
+           
+           - name: install thunderbird
+             win_chocolatey:
+                     name: thunderbird
+                     state: present
+             when: ansible_os_family == 'Windows' 
+
+
+           - name: install openoffice
+             win_chocolatey:
+                     name: openoffice
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install mozilla firefox
+             win_chocolatey:
+                     name: firefox
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install putty
+             win_chocolatey:
+                     name: putty
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+           - name: install virtualbox
+             win_chocolatey:
+                     name: virtualbox
+                     state: present
+             when: ansible_os_family == 'Windows'
+
+
+
+
+
