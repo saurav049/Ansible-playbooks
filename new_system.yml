@@ -1,0 +1,42 @@
+---
+ - hosts: new
+   become: yes
+   tasks:
+#        - name: download  chrome package in ubuntu
+#          command: "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+
+           #        - name: install chrome package
+#          command: "dpkg -i google-chrome-stable_current_amd64.deb"
+        
+       - name: Download skype package for ubuntu
+         command: "wget https://go.skype.com/skypeforlinux-64.deb"
+
+       - name: install skype package
+         shell: dpkg -i /root/skypeforlinux-64.deb
+        #ignore_errors: yes
+
+       - name: install thunderbird
+         apt: name=thunderbird state=latest
+
+       - name: install mozzila firefox
+         apt: name=firefox state=latest
+
+       - name: install git
+         apt: name=git state=latest
+
+#       - name: Download openoffice for ubuntu
+#         command: "wget https://sourceforge.net/projects/openofficeorg.mirror/files/4.1.9/binaries/en-US/Apache_OpenOffice_4.1.9_Linux_x86-64_install-deb_en-US.tar.gz/download"
+#       - name: rename file
+#         command: "mv /root/download /root/openoofice.tar.gz" 
+#       - name: unziping file
+#         command: "tar -xvf /root/openoofice.tar.gz" 
+
+       - name: installing deb packages
+         shell: dpkg -i /root/en-US/DEBS/*.deb
+        
+       - name: integrating deb packages
+         shell: dpkg -i /root/en-US/DEBS/desktop-integration/*.deb
+
+
+          
+

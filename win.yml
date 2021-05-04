@@ -1,0 +1,53 @@
+---
+ - hosts: win
+   tasks:
+           - name: install skype
+             win_chocolatey:
+                     name: skype
+                     state: present
+           
+           - name: install chrome
+             win_chocolatey:
+                     name: googlechrome
+                     state: present
+
+           - name: install anydesk
+             win_chocolatey:
+                     name: anydesk
+                     state: present
+              
+           - name: install teams
+             win_chocolatey:
+                     name: microsoft-teams
+                     state: present
+
+           - name: install thunderbird 
+             win_chocolatey:
+                     name: thunderbird
+                     state: present
+
+           - name: install openoffice
+             win_chocolatey:
+                     name: openoffice
+                     state: present
+
+           - name: install mozilla firefox
+             win_chocolatey:
+                     name: firefox
+                     state: present
+
+           - name: install brave
+             win_chocolatey:
+                     name: brave
+                     state: present
+
+           - name: install putty
+             win_chocolatey:
+                     name: putty
+                     state: present
+           
+           - name: install virtualbox
+             win_chocolatey:
+                     name: virtualbox
+                     state: present
+

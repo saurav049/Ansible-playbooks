@@ -1,0 +1,14 @@
+---
+  - hosts: 192.168.0.182
+    become: yes
+    vars:
+            code_name: saurav
+            version: 0.49
+    tasks:
+          - name: deploy on destination file
+            template:
+                      src: sample
+                      dest: /home/saurav049/sample2
+            delegate_to: saurav049
+
+

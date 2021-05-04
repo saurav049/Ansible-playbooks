@@ -1,0 +1,18 @@
+---
+  - hosts: all
+    become: yes
+    tasks:
+
+     - name: install apache2 on ubuntu system
+       apt:
+           name: apache2
+           state: latest
+       when: ansible_os_family == 'Debian'
+     - name: install httpd on centos system
+       yum:
+           name: httpd
+           state: latest
+       when: ansible_os_family == 'RedHat'
+
+
+

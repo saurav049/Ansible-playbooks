@@ -1,0 +1,14 @@
+---
+
+ - hosts: all
+   vars: 
+        target_file: /home/saurav049/demo2
+   tasks:
+           - name: install package
+             apt: name=hsaha state=present
+             register: demo2
+             ignore_errors: yes
+
+           - name: rename demo2 file when found
+             command: mv "{{ target_file }}" /home/saurav049/found
+             when: demo2.stat.exists

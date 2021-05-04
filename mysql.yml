@@ -1,0 +1,42 @@
+---
+
+ - hosts: all
+   gather_facts: true
+   become: yes
+   vars: 
+       root_pass: "2097"
+   tasks:
+        - name: ensure mysql is running
+          service: name=mysql state=started enabled=true
+          become: yes
+        
+        - name: setting root password
+          mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                      user=root
+                      password={{ root_pass }}
+          become: yes
+
+        - name: setting root password for all host
+          mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock        
+                      name=root
+                      password={{ root_pass }}
+                      host={{ item }}
+          with_items: 
+                - 127.0.0.1
+                - ::1
+                - localhost
+                - webservers
+          become: yes
+
+         
+        - name: delete anyoumous users
+          mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                      name="" host_all=yes state=absent
+          become: yes
+
+
+        - name: remove sql test database
+          mysql_user: login_unix_socket=/var/run/mysqld/mysqld.sock
+                      name=test state=absent
+          become: yes
+
